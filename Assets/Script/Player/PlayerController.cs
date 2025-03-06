@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnJumpInput(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && IsGrounded() && CharacterManager.Instance.Player.conditions.CanJump(jumpStamina))
+        if (context.phase == InputActionPhase.Started && IsGrounded() && CharacterManager.Instance.Player.conditions.CanAction(jumpStamina))
         {
             rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
             CharacterManager.Instance.Player.conditions.ConsumeStamina(jumpStamina);
@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnDashInput(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started)
+        if (context.phase == InputActionPhase.Started && CharacterManager.Instance.Player.conditions.CanAction(dashStamina))
         {
             DashOnOff();
         }

@@ -50,7 +50,7 @@ public class PlayerCondition : MonoBehaviour, IDamageable
         else return false;
     }
 
-    public bool CanJump(int amount)
+    public bool CanAction(int amount)
     {
         if(stamina.curValue < amount)
         {
