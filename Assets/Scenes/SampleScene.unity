@@ -1470,6 +1470,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 20e6d6a6-78b3-4d1b-862c-2bbc1ab12c27
     m_ActionName: PlayerAction/Interaction[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1645200070}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnDashInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 1efd8486-d803-4e89-91a8-1fe8a36090d7
+    m_ActionName: PlayerAction/Dash[/Keyboard/shift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerAction
@@ -1488,15 +1504,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  dashSpeed: 2
+  resultSpeed: 1
   jumpPower: 100
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 55
+  jumpStamina: 50
+  dashStamina: 2
   cameraContainer: {fileID: 1121349533}
   minXLook: -85
   maxXLook: 85
   lookSensitivity: 0.2
   canLook: 1
+  isDash: 0
 --- !u!114 &1645200071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1604,7 +1625,7 @@ MonoBehaviour:
   m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f87965bce5cb9ba4a9781c76a4d0ef51, type: 2}
-  m_sharedMaterial: {fileID: -3246985191621063433, guid: f87965bce5cb9ba4a9781c76a4d0ef51, type: 2}
+  m_sharedMaterial: {fileID: 8949514353358717088, guid: f87965bce5cb9ba4a9781c76a4d0ef51, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

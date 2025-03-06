@@ -7,9 +7,13 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed;
+    public float dashSpeed;
+    public float resultSpeed;
     private Vector2 curMovementInput;
     public float jumpPower;
     public LayerMask groundLayerMask;
+    public int jumpStamina;
+    public int dashStamina;
 
     [Header("Look")]
     public Transform cameraContainer;
@@ -22,6 +26,7 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector]
     public bool canLook = true;
+    public bool isDash = false;
 
     private Rigidbody rigidbody;
 
@@ -33,6 +38,17 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        resultSpeed = moveSpeed;
+    }
+
+    private void Update()
+    {
+        if (isDash)
+        {
+            CharacterManager.Instance.Player.conditions.ConsumeStamina(dashStamina);
+        }
+        if(CharacterManager.Instance.Player.conditions.IsStaminaZero())
+            DashOnOff();
     }
 
     private void FixedUpdate()
@@ -67,16 +83,39 @@ public class PlayerController : MonoBehaviour
 
     public void OnJumpInput(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && IsGrounded())
+        if (context.phase == InputActionPhase.Started && IsGrounded() && CharacterManager.Instance.Player.conditions.CanJump(jumpStamina))
         {
             rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
+            CharacterManager.Instance.Player.conditions.ConsumeStamina(jumpStamina);
+        }
+    }
+
+    public void OnDashInput(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            DashOnOff();
+        }
+    }
+
+    public void DashOnOff()
+    {
+        if (!isDash)
+        {
+            resultSpeed = dashSpeed * moveSpeed;
+            isDash = true;
+        }
+        else
+        {
+            resultSpeed = moveSpeed;
+            isDash = false;
         }
     }
 
     private void Move()
     {
         Vector3 dir = transform.forward * curMovementInput.y + transform.right * curMovementInput.x;
-        dir *= moveSpeed;
+        dir *= resultSpeed;
         dir.y = rigidbody.velocity.y;
 
         rigidbody.velocity = dir;

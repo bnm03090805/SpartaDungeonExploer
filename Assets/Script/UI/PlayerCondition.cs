@@ -38,6 +38,28 @@ public class PlayerCondition : MonoBehaviour, IDamageable
         Debug.Log("»ç¸Á");
     }
 
+    public void ConsumeStamina(int amount)
+    {
+        stamina.Subtract(amount);
+    }
+
+    public bool IsStaminaZero()
+    {
+        if (stamina.curValue <= 0f)
+            return true;
+        else return false;
+    }
+
+    public bool CanJump(int amount)
+    {
+        if(stamina.curValue < amount)
+        {
+            return false;
+        }
+        else
+            return true;
+    }
+
     public void TakePhysicalDamage(int damageAmount)
     {
         health.Subtract(damageAmount);
