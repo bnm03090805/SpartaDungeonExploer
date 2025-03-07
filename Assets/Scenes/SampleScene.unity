@@ -2482,7 +2482,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 810072058}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 233396492}
+        m_TargetAssemblyTypeName: UIInventory, Assembly-CSharp
+        m_MethodName: OnDropButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &810072058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3301,6 +3313,37 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4475888416199783901, guid: c3ab17a9e36c92d4caf57e96d5cd3185, type: 3}
   m_PrefabInstance: {fileID: 1140469618}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1180287849
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1180287850}
+  m_Layer: 6
+  m_Name: DropPostion
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1180287850
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180287849}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1, y: 0.7, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1645200066}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1207194333
 GameObject:
   m_ObjectHideFlags: 0
@@ -4106,6 +4149,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1121349533}
+  - {fileID: 1180287850}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &1645200067
@@ -4326,6 +4370,7 @@ MonoBehaviour:
   controller: {fileID: 0}
   conditions: {fileID: 0}
   itemData: {fileID: 0}
+  dropPosition: {fileID: 1180287850}
 --- !u!114 &1645200072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4574,7 +4619,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1850206928}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 233396492}
+        m_TargetAssemblyTypeName: UIInventory, Assembly-CSharp
+        m_MethodName: OnUseButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1850206928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4933,7 +4990,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC7A5"
+  m_text: "\uC7A5\uCC29"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f87965bce5cb9ba4a9781c76a4d0ef51, type: 2}
   m_sharedMaterial: {fileID: 8949514353358717088, guid: f87965bce5cb9ba4a9781c76a4d0ef51, type: 2}
