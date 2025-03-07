@@ -6,11 +6,15 @@ public class JumpObj : MonoBehaviour
 {
     Rigidbody body;
     public float jumpPower;
+    public float waitTime;
     private void OnCollisionEnter(Collision collision)
     {
-        body = collision.gameObject.GetComponent<Rigidbody>();
+        if (collision.collider.CompareTag("Player"))
+        {
+            body = collision.gameObject.GetComponent<Rigidbody>();
 
-        Invoke(nameof(OnJump), 0.5f);
+            Invoke(nameof(OnJump), waitTime);
+        }
     }
 
     void OnJump()
