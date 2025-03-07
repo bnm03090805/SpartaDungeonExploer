@@ -7,27 +7,29 @@ public class UIInventory : MonoBehaviour
 {
     public ItemSlot[] slots;
 
-    public GameObject inventoryWindow;
+    public GameObject InventoryWindow;
     public Transform slotPanel;
     public Transform dropPosition;
 
-    [Header("Selected Item")]
-    private ItemSlot selectedItem;
-    private int selectedItemIndex;
-    public TextMeshProUGUI selectedItemName;
-    public TextMeshProUGUI selectedItemDescription;
-    public TextMeshProUGUI selectedItemStatName;
-    public TextMeshProUGUI selectedItemStatValue;
+    [Header("Select Item")]
+    public TextMeshProUGUI seletedItemName;
+    public TextMeshProUGUI seletedItemDescription;
+    public TextMeshProUGUI seletedItemStatName;
+    public TextMeshProUGUI seletedItemStatValue;
     public GameObject useButton;
     public GameObject equipButton;
-    public GameObject unEquipButton;
+    public GameObject unequipButton;
     public GameObject dropButton;
-
-    private int curEquipIndex;
 
     private PlayerController controller;
     private PlayerCondition condition;
 
+    ItemData selectedItem;
+    int selectedItemIndex = 0;
+
+    int curEquipIndex = 0;
+
+    // Start is called before the first frame update
     void Start()
     {
         controller = CharacterManager.Instance.Player.controller;
@@ -37,7 +39,7 @@ public class UIInventory : MonoBehaviour
         controller.inventory += Toggle;
         CharacterManager.Instance.Player.addItem += AddItem;
 
-        inventoryWindow.SetActive(false);
+        InventoryWindow.SetActive(false);
         slots = new ItemSlot[slotPanel.childCount];
 
         for (int i = 0; i < slots.Length; i++)
@@ -50,18 +52,17 @@ public class UIInventory : MonoBehaviour
         ClearSelectedItemWindow();
     }
 
+
     void ClearSelectedItemWindow()
     {
-        selectedItem = null;
-
-        selectedItemName.text = string.Empty;
-        selectedItemDescription.text = string.Empty;
-        selectedItemStatName.text = string.Empty;
-        selectedItemStatValue.text = string.Empty;
+        seletedItemName.text = string.Empty;
+        seletedItemDescription.text = string.Empty;
+        seletedItemStatName.text = string.Empty;
+        seletedItemStatValue.text = string.Empty;
 
         useButton.SetActive(false);
         equipButton.SetActive(false);
-        unEquipButton.SetActive(false);
+        unequipButton.SetActive(false);
         dropButton.SetActive(false);
     }
 
@@ -69,20 +70,20 @@ public class UIInventory : MonoBehaviour
     {
         if (IsOpen())
         {
-            inventoryWindow.SetActive(false);
+            InventoryWindow.SetActive(false);
         }
         else
         {
-            inventoryWindow.SetActive(true);
+            InventoryWindow.SetActive(true);
         }
     }
 
     public bool IsOpen()
     {
-        return inventoryWindow.activeInHierarchy;
+        return InventoryWindow.activeInHierarchy;
     }
 
-    public void AddItem()
+    void AddItem()
     {
         ItemData data = CharacterManager.Instance.Player.itemData;
 
@@ -99,7 +100,6 @@ public class UIInventory : MonoBehaviour
         }
 
         ItemSlot emptySlot = GetEmptySlot();
-
         if (emptySlot != null)
         {
             emptySlot.item = data;
@@ -110,10 +110,11 @@ public class UIInventory : MonoBehaviour
         }
 
         ThrowItem(data);
+
         CharacterManager.Instance.Player.itemData = null;
     }
 
-    public void UpdateUI()
+    void UpdateUI()
     {
         for (int i = 0; i < slots.Length; i++)
         {
@@ -152,78 +153,105 @@ public class UIInventory : MonoBehaviour
         return null;
     }
 
-    public void ThrowItem(ItemData data)
+    void ThrowItem(ItemData data)
     {
         Instantiate(data.dropPrefab, dropPosition.position, Quaternion.Euler(Vector3.one * Random.value * 360));
     }
 
     public void SelectItem(int index)
     {
-        if (slots[index].item == null) return;
+        if (slots[index].item == null)
+            return;
 
-        selectedItem = slots[index];
+        selectedItem = slots[index].item;
         selectedItemIndex = index;
 
-        selectedItemName.text = selectedItem.item.displayName;
-        selectedItemDescription.text = selectedItem.item.description;
+        seletedItemName.text = selectedItem.displayName;
+        seletedItemDescription.text = selectedItem.description;
 
-        selectedItemStatName.text = string.Empty;
-        selectedItemStatValue.text = string.Empty;
+        seletedItemStatName.text = string.Empty;
+        seletedItemStatValue.text = string.Empty;
 
-        for (int i = 0; i < selectedItem.item.consumables.Length; i++)
+        for (int i = 0; i < selectedItem.consumables.Length; i++)
         {
-            selectedItemStatName.text += selectedItem.item.consumables[i].type.ToString() + "\n";
-            selectedItemStatValue.text += selectedItem.item.consumables[i].value.ToString() + "\n";
+            seletedItemStatName.text += selectedItem.consumables[i].type.ToString() + "\n";
+            seletedItemStatValue.text += selectedItem.consumables[i].value.ToString() + "\n";
         }
 
-        useButton.SetActive(selectedItem.item.type == ItemType.Consumable);
-        equipButton.SetActive(selectedItem.item.type == ItemType.Equipable && !slots[index].equipped);
-        unEquipButton.SetActive(selectedItem.item.type == ItemType.Equipable && slots[index].equipped);
+        useButton.SetActive(selectedItem.type == ItemType.Consumable);
+        equipButton.SetActive(selectedItem.type == ItemType.Equipable && !slots[index].equipped);
+        unequipButton.SetActive(selectedItem.type == ItemType.Equipable && slots[index].equipped);
         dropButton.SetActive(true);
     }
 
     public void OnUseButton()
     {
-        if (selectedItem.item.type == ItemType.Consumable)
+        if (selectedItem.type == ItemType.Consumable)
         {
-            for (int i = 0; i < selectedItem.item.consumables.Length; i++)
+            for (int i = 0; i < selectedItem.consumables.Length; i++)
             {
-                switch (selectedItem.item.consumables[i].type)
+                switch (selectedItem.consumables[i].type)
                 {
                     case ConsumableType.Health:
-                        condition.Heal(selectedItem.item.consumables[i].value); break;
+                        condition.Heal(selectedItem.consumables[i].value);
+                        break;
                 }
             }
-            RemoveSelctedItem();
+
+            RemoveSeletedItem();
         }
     }
 
     public void OnDropButton()
     {
-        ThrowItem(selectedItem.item);
-        RemoveSelctedItem();
+        ThrowItem(selectedItem);
+        RemoveSeletedItem();
     }
-    void RemoveSelctedItem()
+
+    void RemoveSeletedItem()
     {
-        selectedItem.quantity--;
+        slots[selectedItemIndex].quantity--;
 
-        if (selectedItem.quantity <= 0)
+        if (slots[selectedItemIndex].quantity <= 0)
         {
-            if (slots[selectedItemIndex].equipped)
-            {
-                //UnEquip(selectedItemIndex);
-            }
-
-            selectedItem.item = null;
+            selectedItem = null;
+            slots[selectedItemIndex].item = null;
+            selectedItemIndex = -1;
             ClearSelectedItemWindow();
         }
 
         UpdateUI();
     }
 
-    public bool HasItem(ItemData item, int quantity)
+    public void OnEquipButton()
     {
-        return false;
+        if (slots[curEquipIndex].equipped)
+        {
+            UnEquip(curEquipIndex);
+        }
+
+        slots[selectedItemIndex].equipped = true;
+        curEquipIndex = selectedItemIndex;
+        CharacterManager.Instance.Player.equip.EquipNew(selectedItem);
+        UpdateUI();
+
+        SelectItem(selectedItemIndex);
     }
 
+    void UnEquip(int index)
+    {
+        slots[index].equipped = false;
+        CharacterManager.Instance.Player.equip.UnEquip();
+        UpdateUI();
+
+        if (selectedItemIndex == index)
+        {
+            SelectItem(selectedItemIndex);
+        }
+    }
+
+    public void OnUnEquipButton()
+    {
+        UnEquip(selectedItemIndex);
+    }
 }

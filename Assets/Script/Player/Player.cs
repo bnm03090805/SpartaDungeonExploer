@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
 
     public ItemData itemData;
     public Action addItem;
+    public Equipment equip;
 
     public Transform dropPosition;
 
@@ -18,5 +19,6 @@ public class Player : MonoBehaviour
         CharacterManager.Instance.Player = this;
         controller = GetComponent<PlayerController>();
         conditions = GetComponent<PlayerCondition>();
+        equip = GetComponent<Equipment>();
     }
 }
