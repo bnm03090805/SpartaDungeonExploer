@@ -37,6 +37,10 @@ public class PlayerCondition : MonoBehaviour, IDamageable
     {
         Debug.Log("»ç¸Á");
     }
+    public void PlusStamina(float amount)
+    {
+        stamina.Add(amount);
+    }
 
     public bool ConsumeStamina(float amount)
     {

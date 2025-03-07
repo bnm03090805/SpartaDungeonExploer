@@ -178,7 +178,7 @@ public class UIInventory : MonoBehaviour
             seletedItemStatValue.text += selectedItem.consumables[i].value.ToString() + "\n";
         }
 
-        useButton.SetActive(selectedItem.type == ItemType.Consumable);
+        useButton.SetActive(selectedItem.type == ItemType.Consumable || selectedItem.type == ItemType.Boost);
         equipButton.SetActive(selectedItem.type == ItemType.Equipable && !slots[index].equipped);
         unequipButton.SetActive(selectedItem.type == ItemType.Equipable && slots[index].equipped);
         dropButton.SetActive(true);
@@ -195,6 +195,23 @@ public class UIInventory : MonoBehaviour
                     case ConsumableType.Health:
                         condition.Heal(selectedItem.consumables[i].value);
                         break;
+                    case ConsumableType.Stamina:
+                        condition.PlusStamina(selectedItem.consumables[i].value);
+                        break;
+                }
+            }
+
+            RemoveSeletedItem();
+        }
+        if(selectedItem.type == ItemType.Boost)
+        {
+            for (int i = 0; i < selectedItem.boosts.Length; i++)
+            {
+                switch (selectedItem.boosts[i].type)
+                {
+                    case BoostType.SpeedUP:
+                        controller.ItemSpeedUP(selectedItem, selectedItem.boosts[i].value);
+                        break;   
                 }
             }
 

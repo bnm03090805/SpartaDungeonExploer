@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed;
     public float dashSpeed;
     public float resultSpeed;
+    public float plusSpeed;
     private Vector2 curMovementInput;
     public float jumpPower;
     public LayerMask groundLayerMask;
@@ -105,12 +106,12 @@ public class PlayerController : MonoBehaviour
     {
         if (!isDash)
         {
-            resultSpeed = dashSpeed * moveSpeed;
+            resultSpeed = (dashSpeed + plusSpeed) * moveSpeed;
             isDash = true;
         }
         else
         {
-            resultSpeed = moveSpeed;
+            resultSpeed = moveSpeed + plusSpeed;
             isDash = false;
         }
     }
@@ -168,5 +169,24 @@ public class PlayerController : MonoBehaviour
         bool toggle = Cursor.lockState == CursorLockMode.Locked;
         Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
         canLook = !toggle;
+    }
+
+    public void ItemSpeedUP(ItemData item, float amount)
+    {
+        if (item == null)
+            return;
+        StartCoroutine(SpeedUP(item.duration, amount));
+    }
+
+    private IEnumerator SpeedUP(float duration, float amount)
+    {
+        plusSpeed += amount;
+        resultSpeed += plusSpeed;
+        yield return new WaitForSeconds(duration);
+        plusSpeed = 0;
+        if (isDash)
+            resultSpeed = moveSpeed * dashSpeed;
+        else
+            resultSpeed = moveSpeed;
     }
 }
