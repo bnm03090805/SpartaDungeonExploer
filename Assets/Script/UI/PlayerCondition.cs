@@ -38,7 +38,7 @@ public class PlayerCondition : MonoBehaviour, IDamageable
         Debug.Log("»ç¸Á");
     }
 
-    public void ConsumeStamina(int amount)
+    public void ConsumeStamina(float amount)
     {
         stamina.Subtract(amount);
     }
@@ -50,7 +50,7 @@ public class PlayerCondition : MonoBehaviour, IDamageable
         else return false;
     }
 
-    public bool CanAction(int amount)
+    public bool CanAction(float amount)
     {
         if(stamina.curValue < amount)
         {

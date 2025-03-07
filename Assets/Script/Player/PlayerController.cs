@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     public float jumpPower;
     public LayerMask groundLayerMask;
     public int jumpStamina;
-    public int dashStamina;
+    public float dashStamina;
 
     [Header("Look")]
     public Transform cameraContainer;
