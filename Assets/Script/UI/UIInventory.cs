@@ -211,7 +211,10 @@ public class UIInventory : MonoBehaviour
                 {
                     case BoostType.SpeedUP:
                         controller.ItemSpeedUP(selectedItem, selectedItem.boosts[i].value);
-                        break;   
+                        break;
+                    case BoostType.invincibility:
+                        condition.UseInvincibleItem(selectedItem);
+                        break;
                 }
             }
 

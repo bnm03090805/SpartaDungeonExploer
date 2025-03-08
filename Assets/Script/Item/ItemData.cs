@@ -18,7 +18,8 @@ public enum ConsumableType
 
 public enum BoostType
 {
-    SpeedUP
+    SpeedUP,
+    invincibility
 }
 
 [System.Serializable]

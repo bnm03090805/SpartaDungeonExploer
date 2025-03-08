@@ -11,6 +11,7 @@ public interface IDamageable
 public class PlayerCondition : MonoBehaviour, IDamageable
 {
     public UIConditions uiCondition;
+    private bool IsInvincible;
 
     Conditions health { get { return uiCondition.health; } }
     Conditions stamina { get { return uiCondition.stamina; } }
@@ -58,10 +59,32 @@ public class PlayerCondition : MonoBehaviour, IDamageable
             return true;
         else return false;
     }
+    public void UseInvincibleItem(ItemData data)
+    {
+        StartCoroutine(OnInvincible(data.duration));
+    }
+    
+    void ToggleInvincibleItem()
+    {
+        if (IsInvincible)
+            IsInvincible = false;
+        else
+            IsInvincible = true;
+    }
+
+    IEnumerator OnInvincible(float duration)
+    {
+        ToggleInvincibleItem();
+
+        yield return new WaitForSeconds(duration);
+        ToggleInvincibleItem();
+    }
 
  
     public void TakePhysicalDamage(int damageAmount)
     {
+        if (IsInvincible)
+            return;
         health.Subtract(damageAmount);
         onTakeDamage?.Invoke();
     }
