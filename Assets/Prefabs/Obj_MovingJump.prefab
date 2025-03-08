@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1641023799766417514}
   - component: {fileID: 145947064475373531}
   - component: {fileID: 5783513505442785750}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: JumpObj02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 8273118554257097043}
   - component: {fileID: 8069921488092940216}
   - component: {fileID: 4008452439255953521}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Obj_MovingJump
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,3 +166,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpPower: 120
   waitTime: 0.5
+  Destination: {fileID: 0}
+  Depart: {fileID: 0}
+  isArrive: 0

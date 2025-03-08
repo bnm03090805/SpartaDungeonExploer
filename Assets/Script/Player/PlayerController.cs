@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 curMovementInput;
     public float jumpPower;
     public LayerMask groundLayerMask;
+    public LayerMask objLayerMask;
     public int jumpStamina;
     public float dashStamina;
 
@@ -31,6 +32,8 @@ public class PlayerController : MonoBehaviour
     public bool isDash = false;
 
     private Rigidbody rigidbody;
+
+    RaycastHit hit;
 
     public Action inventory;
 
@@ -154,6 +157,7 @@ public class PlayerController : MonoBehaviour
 
         return false;
     }
+
 
     public void OnInventoryButton(InputAction.CallbackContext callbackContext)
     {

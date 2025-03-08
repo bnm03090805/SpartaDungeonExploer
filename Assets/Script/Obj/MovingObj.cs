@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingJumpObj : JumpObj
+public class MovingObj : MonoBehaviour
 {
     public Transform Destination;
     public Transform Depart;
@@ -38,5 +38,15 @@ public class MovingJumpObj : JumpObj
         {
             isArrive = false;
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        collision.transform.parent = this.transform;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        collision.transform.parent = null;
     }
 }

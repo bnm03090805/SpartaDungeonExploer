@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class JumpingObjContorller : MonoBehaviour
 {
-    MovingJumpObj obj;
+    MovingObj obj;
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("¡¢√À«‘");
         if (other.CompareTag("Obj"))
         {
             Debug.Log(other.name);
-            obj = other.GetComponent<MovingJumpObj>();
+            obj = other.GetComponent<MovingObj>();
             obj.ToggleArrive();
         }
     }
