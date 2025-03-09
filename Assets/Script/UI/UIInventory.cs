@@ -203,7 +203,7 @@ public class UIInventory : MonoBehaviour
 
             RemoveSeletedItem();
         }
-        if(selectedItem.type == ItemType.Boost)
+        else if(selectedItem.type == ItemType.Boost)
         {
             for (int i = 0; i < selectedItem.boosts.Length; i++)
             {
