@@ -17,6 +17,11 @@ public class Interaction : MonoBehaviour
     public TextMeshProUGUI promptText;
     private Camera camera;
 
+    [Header("Wall")]
+    public float maxWallCheckDistance;
+    public GameObject curWallObject;
+    public LayerMask wallLayerMask;
+
     void Start()
     {
         camera = Camera.main;
@@ -40,6 +45,13 @@ public class Interaction : MonoBehaviour
                     curInteractable = hit.collider.GetComponent<IInteractable>();
                     SetPromptText();
                 }
+            }
+            else if (Physics.Raycast(ray, out hit, maxWallCheckDistance, wallLayerMask))
+            {
+                Debug.Log($"벽을 감지했습니다 {hit.collider.name}");
+                SetPromptText();
+                curWallObject = hit.collider.gameObject;
+                
             }
             else
             {

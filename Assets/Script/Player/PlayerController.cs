@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     public bool canLook = true;
     public bool isDash = false;
     public bool onLauched = false;
+    public bool isCliming = false;
 
     private Rigidbody rigidbody;
 
@@ -196,4 +197,6 @@ public class PlayerController : MonoBehaviour
         else
             resultSpeed = moveSpeed;
     }
+
+    
 }
