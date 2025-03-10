@@ -24,8 +24,13 @@ public class LeverObj : MonoBehaviour, IInteractable
         if (brigde.activeSelf)
         {
             brigde.SetActive(false);
+            transform.localRotation = Quaternion.Euler(180f, 0f, 40f);
         }
-        else 
+        else
+        {
             brigde.SetActive(true);
+            transform.localRotation = Quaternion.Euler(180f, 0f, -40f);
+        }
+            
     }
 }
