@@ -6,7 +6,8 @@ public enum ObjType
 {
     Damageable,
     Jump,
-    Box
+    Box,
+    Lever
 }
 
 [CreateAssetMenu(fileName = "Obj", menuName = "New Obj")]
