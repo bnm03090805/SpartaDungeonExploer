@@ -5,7 +5,8 @@ using UnityEngine;
 public enum ObjType
 {
     Damageable,
-    Jump
+    Jump,
+    Box
 }
 
 [CreateAssetMenu(fileName = "Obj", menuName = "New Obj")]
@@ -15,4 +16,5 @@ public class ObjData : ScriptableObject
     public string displayName;
     public string description;
     public ObjType type;
+    public ItemData[] dropItems;
 }
