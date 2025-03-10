@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public bool canLook = true;
     public bool isDash = false;
+    public bool onLauched = false;
 
     private Rigidbody rigidbody;
 
@@ -60,7 +61,8 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
+        if (!onLauched)
+            Move();
     }
 
     private void LateUpdate()
@@ -151,6 +153,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Physics.Raycast(rays[i], 0.1f, groundLayerMask))
             {
+                onLauched = false;
                 return true;
             }
         }
