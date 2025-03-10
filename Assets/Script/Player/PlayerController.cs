@@ -64,6 +64,8 @@ public class PlayerController : MonoBehaviour
     {
         if (!onLauched)
             Move();
+        if(isCliming)
+            Climing();
     }
 
     private void LateUpdate()
@@ -198,5 +200,23 @@ public class PlayerController : MonoBehaviour
             resultSpeed = moveSpeed;
     }
 
-    
+    public void ToggleIsCliming()
+    {
+        if (isCliming)
+        {
+            isCliming = false;
+            rigidbody.drag = Mathf.Infinity;
+        }
+        else
+        {
+            isCliming = true;
+            rigidbody.drag = 0f;
+        }
+            
+    }
+
+    void Climing()
+    {
+        
+    }
 }
