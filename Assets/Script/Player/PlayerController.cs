@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public int jumpStamina;
     public float dashStamina;
     public float wallSpeed;
+    public float ItemJumpPower;
 
     [Header("Look")]
     public Transform cameraContainer;
@@ -98,7 +99,7 @@ public class PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started && IsGrounded())
         {
-            rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
+            rigidbody.AddForce(Vector2.up * (jumpPower + ItemJumpPower), ForceMode.Impulse);
             CharacterManager.Instance.Player.conditions.ConsumeStamina(jumpStamina);
         }
     }
@@ -226,5 +227,13 @@ public class PlayerController : MonoBehaviour
             
     }
 
-    
+    public void ItemJumpPowerUPOn(float amount)
+    {
+        ItemJumpPower += amount;
+    }
+
+    public void ItemJumpPowerUPOff()
+    {
+        ItemJumpPower = 0;
+    }
 }

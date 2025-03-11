@@ -23,6 +23,11 @@ public class Equipment : MonoBehaviour
         curEquip = Instantiate(data.equipPrefab, equipParent).GetComponent<Equip>();
     }
 
+    public void EquipBoost(ItemData data)
+    {
+        controller.ItemJumpPowerUPOn(data.boostAmount);
+    }
+
     public void UnEquip()
     {
         if (curEquip != null)
@@ -30,6 +35,11 @@ public class Equipment : MonoBehaviour
             Destroy(curEquip.gameObject);
             curEquip = null;
         }
+    }
+
+    public void UnEquipBoost()
+    {
+        controller.ItemJumpPowerUPOff();
     }
 
     public void OnAttackInput(InputAction.CallbackContext context)

@@ -6,6 +6,7 @@ public enum ItemType
 {
     Resource,
     Equipable,
+    EquipBoostable,
     Consumable,
     Boost
 }
@@ -59,6 +60,11 @@ public class ItemData : ScriptableObject
     [Header("Equip")]
     public GameObject equipPrefab;
 
+    [Header("EquipBoost")]
+    public float boostAmount;
+
     [Header("Duration")]
     public float duration;
+
+    
 }
