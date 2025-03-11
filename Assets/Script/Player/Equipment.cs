@@ -20,12 +20,11 @@ public class Equipment : MonoBehaviour
     public void EquipNew(ItemData data)
     {
         UnEquip();
-        curEquip = Instantiate(data.equipPrefab, equipParent).GetComponent<Equip>();
-    }
-
-    public void EquipBoost(ItemData data)
-    {
-        controller.ItemJumpPowerUPOn(data.boostAmount);
+        if(data.type == ItemType.EquipBoostable)
+            controller.ItemJumpPowerUPOn(data.boostAmount);
+        else
+            curEquip = Instantiate(data.equipPrefab, equipParent).GetComponent<Equip>();
+        
     }
 
     public void UnEquip()

@@ -179,8 +179,8 @@ public class UIInventory : MonoBehaviour
         }
 
         useButton.SetActive(selectedItem.type == ItemType.Consumable || selectedItem.type == ItemType.Boost);
-        equipButton.SetActive(selectedItem.type == ItemType.Equipable || selectedItem.type == ItemType.EquipBoostable && !slots[index].equipped);
-        unequipButton.SetActive(selectedItem.type == ItemType.Equipable || selectedItem.type == ItemType.EquipBoostable && slots[index].equipped);
+        equipButton.SetActive((selectedItem.type == ItemType.Equipable || selectedItem.type == ItemType.EquipBoostable) && !slots[index].equipped);
+        unequipButton.SetActive((selectedItem.type == ItemType.Equipable || selectedItem.type == ItemType.EquipBoostable) && slots[index].equipped);
         dropButton.SetActive(true);
     }
 
@@ -252,10 +252,7 @@ public class UIInventory : MonoBehaviour
 
         slots[selectedItemIndex].equipped = true;
         curEquipIndex = selectedItemIndex;
-        if (selectedItem.type == ItemType.Equipable)
-            CharacterManager.Instance.Player.equip.EquipNew(selectedItem);
-        else
-            CharacterManager.Instance.Player.equip.EquipBoost(selectedItem);
+        CharacterManager.Instance.Player.equip.EquipNew(selectedItem);
         UpdateUI();
 
         SelectItem(selectedItemIndex);
@@ -264,10 +261,9 @@ public class UIInventory : MonoBehaviour
     void UnEquip(int index)
     {
         slots[index].equipped = false;
-        if (selectedItem.type == ItemType.Equipable)
-            CharacterManager.Instance.Player.equip.UnEquip();
-        else
-            CharacterManager.Instance.Player.equip.UnEquipBoost();
+
+        CharacterManager.Instance.Player.equip.UnEquip();
+        CharacterManager.Instance.Player.equip.UnEquipBoost();
         UpdateUI();
 
         if (selectedItemIndex == index)
