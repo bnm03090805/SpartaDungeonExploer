@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask objLayerMask;
     public int jumpStamina;
     public float dashStamina;
+    public float wallSpeed;
 
     [Header("Look")]
     public Transform cameraContainer;
@@ -62,7 +63,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!onLauched)
+        if (!onLauched || !isCliming)
             Move();
         if(isCliming)
             Climing();
@@ -129,6 +130,16 @@ public class PlayerController : MonoBehaviour
         Vector3 dir = transform.forward * curMovementInput.y + transform.right * curMovementInput.x;
         dir *= resultSpeed;
         dir.y = rigidbody.velocity.y;
+
+        rigidbody.velocity = dir;
+    }
+
+    //어찌댓든 기적적으로 돌아간다.. 이유는 몰?루
+    void Climing()
+    {
+        Vector3 dir = transform.up * curMovementInput.y + transform.right * curMovementInput.x;
+        dir *= wallSpeed;
+        //dir.y = rigidbody.velocity.y;
 
         rigidbody.velocity = dir;
     }
@@ -205,18 +216,15 @@ public class PlayerController : MonoBehaviour
         if (isCliming)
         {
             isCliming = false;
-            rigidbody.drag = Mathf.Infinity;
+            //rigidbody.drag = Mathf.Infinity;
         }
         else
         {
             isCliming = true;
-            rigidbody.drag = 0f;
+            //rigidbody.drag = 0f;
         }
             
     }
 
-    void Climing()
-    {
-        
-    }
+    
 }

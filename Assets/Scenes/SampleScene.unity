@@ -5406,6 +5406,7 @@ MonoBehaviour:
     m_Bits: 0
   jumpStamina: 50
   dashStamina: 0.2
+  wallSpeed: 1
   cameraContainer: {fileID: 1121349533}
   minXLook: -85
   maxXLook: 85
