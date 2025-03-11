@@ -68,6 +68,8 @@ public class PlayerController : MonoBehaviour
             Move();
         if(isCliming)
             Climing();
+
+        IsGrounded();
     }
 
     private void LateUpdate()
