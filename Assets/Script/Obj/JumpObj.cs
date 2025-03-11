@@ -17,6 +17,7 @@ public class JumpObj : MonoBehaviour
             body = collision.gameObject.GetComponent<Rigidbody>();
             controller = collision.gameObject.GetComponent<PlayerController>();
             vector = collision.contacts[0].normal * -1;
+            Debug.Log(vector);
 
             Invoke(nameof(OnJump), waitTime);
         }
@@ -28,7 +29,7 @@ public class JumpObj : MonoBehaviour
             controller.onLauched = true;
 
         body.AddForce(vector * jumpPower, ForceMode.Impulse);
-        body = null;
-        vector = Vector3.zero;
+        //body = null;
+        //vector = Vector3.zero;
     }
 }

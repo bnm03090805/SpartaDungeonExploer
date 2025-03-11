@@ -14,7 +14,7 @@ public class WallObj : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
-        Debug.Log($"인터렉트{CharacterManager.Instance.Player.controller.isCliming}");
+        //Debug.Log($"인터렉트{CharacterManager.Instance.Player.controller.isCliming}");
         CharacterManager.Instance.Player.controller.ToggleIsCliming();
     }
 

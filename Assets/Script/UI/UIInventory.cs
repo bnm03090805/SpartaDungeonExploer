@@ -263,7 +263,6 @@ public class UIInventory : MonoBehaviour
         slots[index].equipped = false;
 
         CharacterManager.Instance.Player.equip.UnEquip();
-        CharacterManager.Instance.Player.equip.UnEquipBoost();
         UpdateUI();
 
         if (selectedItemIndex == index)

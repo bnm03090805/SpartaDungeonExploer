@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!onLauched || !isCliming)
+        if (!onLauched && !isCliming)
             Move();
         if(isCliming)
             Climing();
